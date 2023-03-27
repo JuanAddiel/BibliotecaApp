@@ -1,0 +1,82 @@
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Crear Libros</h1>
+            <p class="lead text-muted">Una aplicacion hecha para ver Libros.</p>
+            <form method="POST" class=" d-inline-flex " action="/filtro-titulo">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="Titulo">
+                <button class=" btn btn-info" type="submit">Buscar</button>
+            </form>
+            <p>
+            
+            
+            <form method="POST" class="d-inline-flex " action="/libro">
+                <div class="card text-dark bg-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Categorias</h5>
+                        {{#each categoria}}
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{this.id}}" name="Categoria"
+                                id="categoria">{{this.nombre}}
+                        </div>
+                        {{/each}}
+
+                    </div>
+                </div>
+
+
+                <button class=" btn btn-info" type="submit">Buscar</button>
+
+            </form>
+            </p>
+        </div>
+    </div>
+</section>
+
+{{#if hasLibros}}
+
+<div class="album ">
+    <div class="container">
+        <div class="row">
+            <div class="row">
+
+                {{#each libro as |bk|}}
+                <div class="col-md-4 mt-5">
+
+                    <div class="card bg-success text-light">
+
+                        <div class="card-body">
+
+                            <h4 class="card-title">{{bk.titulo}}-{{bk.ano}}</h4>
+                            <form method="POST" action="/libro-details">
+                                <input type="hidden" name="Id" value="{{bk.id}}">
+                                <button id="enviar" type="submit" class=" img-responsive bg-success">
+                                    <img src="{{bk.imagen}}" class=" img-responsive" alt="{{bk.titulo}}">
+                                </button>
+                                <hr>
+
+                                <h5 class="card-title">Categoria: {{bk.Categoria.dataValues.nombre}}</h5>
+                                <h5 class="card-title">Autor: {{bk.Autor.dataValues.nombre}}</h5>
+                                <h5 class="card-title">Editorial: {{bk.Editorial.dataValues.nombre}}</h5>
+
+
+
+                        </div>
+
+
+
+
+                        </form>
+                    </div>
+
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <h1>No hay Libros</h1>
+    {{/if}}
+</div>

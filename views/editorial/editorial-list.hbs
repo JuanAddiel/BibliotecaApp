@@ -1,0 +1,58 @@
+<section class="py-5 text-center container">
+	<div class="row py-lg-5">
+		<div class="col-lg-6 col-md-8 mx-auto">
+			<h1 class="fw-light">Crear una Editorial</h1>
+			<p class="lead text-muted">Crea y observa editoriales</p>
+			<p>
+				<a href="/editorial/create-editorial" class="btn btn-secondary my-2">Crear nueva editorial</a>
+			</p>
+		</div>
+	</div>
+</section>
+
+{{#if hasEditorial}}
+<div class="album ">
+	<div class="container">
+
+		<div class="main container">
+			<div class="row">
+				<div class="row">
+
+					{{#each editorial as |edito|}}
+					<input type="hidden" name="Id" value="{{edito.id}}" />
+					<div class="col-md-4 mt-5">
+						<div class="card bg-success text-light">
+
+							<div class="card-body">
+
+								<h4 class="card-title">{{edito.name}}</h4>
+								<h5 class="card-title">Telefono: {{edito.telefono}}</h5>
+								<h5 class="card-title">Pais: {{edito.pais}}</h5>
+								<h5 class="card-title">{{#if cantidad_libros}}Tiene: {{cantidad_libros}}
+									libros{{else}}No tiene Libro{{/if}}</h5>
+
+							</div>
+
+							<hr>
+							<form id="form-deleteE" class="form-inline" action="/editorial/delete-editorial"
+								method="post">
+								<a href="/editorial/edit-editorial/{{edito.id}}?edit=true"
+									class="btn btn-primary p-3 m-3">Editar</a>
+								<input type="hidden" name="Id" value="{{edito.id}}" />
+								<button class="btn btn-outline-warning p-3 m-3 delete-editorial">Eliminar</button>
+							</form>
+
+
+
+						</div>
+
+					</div>
+					{{/each}}
+					{{else}}
+					<h1>No hay Editorial</h1>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

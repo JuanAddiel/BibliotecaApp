@@ -1,0 +1,55 @@
+<section class="py-5 text-center container">
+	<div class="row py-lg-5">
+		<div class="col-lg-6 col-md-8 mx-auto">
+			<h1 class="fw-light">Crear Libros</h1>
+			<p class="lead text-muted">Una aplicacion hecha para crear Libros.</p>
+			<p>
+				<a href="/libro/create-libro" class="btn btn-secondary my-2">Crear nuevo Libro</a>
+			</p>
+		</div>
+	</div>
+</section>
+
+
+{{#if hasLibros}}
+<div class="album ">
+	<div class="container">
+		<div class="row">
+			<div class="row">
+
+				{{#each libros as |bk|}}
+				<div class="col-md-4 mt-5">
+					<div class="card bg-success text-light">
+
+						<div class="card-body">
+
+							<h4 class="card-title">{{bk.titulo}}-{{bk.ano}}</h4>
+							<img src="{{bk.imagen}}"class="card-img-top img-responsive" alt="{{bk.titulo}}">
+							<h5 class="card-title">Categoria: {{bk.Categoria.dataValues.nombre}}</h5>
+							<h5 class="card-title">Autor: {{bk.Autor.dataValues.nombre}}</h5>
+                            <h5 class="card-title">Editorial: {{bk.Editorial.dataValues.nombre}}</h5>
+						</div>
+
+						<hr>
+						<form class="form-inline" id="form-deleteL" action="/libro/delete-libro" method="post">
+							<a href="/libro/edit-libro/{{bk.id}}?edit=true"
+								class="btn btn-primary p-3 m-3">Editar</a>
+							<input type="hidden" name="Id" value="{{bk.id}}" />
+							<button type="submit"
+								class="btn btn-outline-warning p-3 m-3 delete-libro">Eliminar</button>
+						</form>
+
+
+
+					</div>
+
+				</div>
+				{{/each}}
+
+			</div>
+		</div>
+	</div>
+	{{else}}
+		<h1>No hay Libros</h1>
+	{{/if}}
+</div>

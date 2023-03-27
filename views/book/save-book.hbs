@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-md-6 offset-3 mt-5">
+        <div class="card">
+
+            {{#if hasAutor}}
+            {{#if hasCategoria}}
+            {{#if hasEditorial}}
+
+            <div class="card-header bg-dark text-white ">
+                {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Libros
+            </div>
+            <div class="card-body card-gris ">
+                {{#if editMode}}
+                <img src="{{libros.imagen}}" class="card-img-top img-responsive" alt="{{libros.titulo}}">
+                {{/if}}
+                <form enctype="multipart/form-data" method="POST"
+                    action="{{#if editMode}}/libro/edit-libro{{else}}/libro/create-libro{{/if}}">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label text-white">Titulo</label>
+                        <input type="text" class="form-control" id="titulo" name="Titulo"
+                            value="{{#if editMode}}{{libros.titulo}}{{/if}}" required />
+
+                        <label for="Ano" class="form-label text-white">Año</label>
+                        <input type="text" class="form-control" id="Ano" name="Ano"
+                            value="{{#if editMode}}{{libros.ano}}{{/if}}" required />
+                        <label for="image" class="form-label">Selecciona una imagen</label>
+                        <input type="file" class="form-control" id="image" name="Imagen" {{#if
+                            editMode}}{{else}}required{{/if}} />
+                    </div>
+                    <div class="mb-3">
+                        <label for="autor" class="form-label text-white">Autor: </label>
+                        <select class="form-select" id="autor" name="Autor" required>
+                            <option value="" {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
+
+                            {{#each autor as |aut|}}
+
+                            {{#if (equalValue aut.id ../libros.AutorId)}}
+                            <option selected value="{{aut.id}}">{{aut.nombre}}</option>
+                            {{else}}
+                            <option value="{{aut.id}}">{{aut.nombre}}</option>
+                            {{/if}}
+
+                            {{/each}}
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label text-white">Categoria: </label>
+                        <select class="form-select" id="categoria" name="Categoria" required>
+                            <option value="" {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
+
+                            {{#each categoria as |cat|}}
+
+                            {{#if (equalValue cat.id ../libros.CategoriaId)}}
+                            <option selected value="{{cat.id}}">{{cat.nombre}}</option>
+                            {{else}}
+                            <option value="{{cat.id}}">{{cat.nombre}}</option>
+                            {{/if}}
+
+                            {{/each}}
+
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="editorial" class="form-label text-white">Editorial: </label>
+                        <select class="form-select" id="editorial" name="Editorial" required>
+                            <option value="" {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
+
+                            {{#each editorial as |edi|}}
+
+                            {{#if (equalValue edi.id ../libros.EditorialId)}}
+                            <option selected value="{{edi.id}}">{{edi.nombre}}</option>
+                            {{else}}
+                            <option value="{{edi.id}}">{{edi.nombre}}</option>
+                            {{/if}}
+
+                            {{/each}}
+
+                        </select>
+                    </div>
+                    {{#if editMode}}
+
+                    <input type="hidden" name="Id" value="{{libros.id}}">
+
+                    {{/if}}
+                    <a href="/libro" class="btn btn-danger">Atras</a>
+                    <button id="enviar" type="submit" class="btn btn-primary">{{#if
+                        editMode}}Editar{{else}}Crear{{/if}}</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{{else}}
+<h1 class="card-header bg-dark text-white">No hay Autor</h1>
+{{/if}}
+{{else}}
+<h1 class="card-header bg-dark text-white">No hay Categoria</h1>
+{{/if}}
+{{else}}
+<h1 class="card-header bg-dark text-white">No hay Editorial</h1>
+{{/if}}

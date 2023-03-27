@@ -1,0 +1,59 @@
+<section class="py-5 text-center container">
+	<div class="row py-lg-5">
+		<div class="col-lg-6 col-md-8 mx-auto">
+			<h1 class="fw-light">Crear una Categoria</h1>
+			<p class="lead text-muted">Crea y observa Categorias</p>
+			<p>
+				<a href="/categoria/create-categoria" class="btn btn-secondary my-2">Crear nueva Categoria</a>
+			</p>
+		</div>
+	</div>
+</section>
+
+{{#if hasCategoria}}
+<div class="album ">
+	<div class="container">
+
+		<div class="main container">
+			<div class="row">
+				<div class="row">
+
+					{{#each categorias as |cate|}}
+					<input type="hidden" name="Id" value="{{cate.id}}" />
+					<div class="col-md-4 mt-5">
+						<div class="card bg-success text-light">
+
+							<div class="card-body">
+
+								<h4 class="card-title">{{cate.nombre}}</h4>
+								<h5 class="card-title">Descripcion: {{cate.descripcion}}</h5>
+								
+							<h5 class="card-title">{{#if cantidad_libros}}Tiene: {{cantidad_libros}} libros{{else}}No tiene Libro{{/if}}</h5>
+
+
+							</div>
+							
+							<hr>
+							<form id="form-deleteC" class="form-inline" action="/categoria/delete-categoria"
+								method="post">
+								<input type="hidden" name="Id" value="{{cate.id}}" />
+								<a href="/categoria/edit-categoria/{{cate.id}}?edit=true"
+									class="btn btn-primary p-3 m-3">Editar</a>
+
+								<button class="btn btn-outline-warning p-3 m-3 delete-categoria">Eliminar</button>
+							</form>
+
+
+
+						</div>
+
+					</div>
+					{{/each}}
+					{{else}}
+					<h1>No hay Categoria</h1>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
